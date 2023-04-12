@@ -21,20 +21,18 @@ try {
 
         if (Array.isArray(variable)) {
             variable.forEach((value, index) => {
-                processVariable(value, `${name}_${index}`);
+                processVariable(value, `${index}`);
             });
         }
         else if (typeof variable === 'object') {
             for (const field in variable) {
-                processVariable(variable[field], `${name}_${field}`);
+                processVariable(variable[field], `${field}`);
             }
         }
         else {
             if (masked) {
                 core.setSecret(variable);
             }
-
-            core.info(`SET ENV '${name}' = ${variable}`);
             core.exportVariable(name, variable.toString());
         }
     };
